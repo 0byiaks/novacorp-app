@@ -1,0 +1,57 @@
+
+
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on:
+      - api
+    networks:
+      - novacorp
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://novacorp:novacorp@db:5432/novacorp
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - ENVIRONMENT=development
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - novacorp
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=novacorp
+      - POSTGRES_PASSWORD=novacorp
+      - POSTGRES_DB=novacorp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U novacorp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - novacorp
+
+networks:
+  novacorp:
+    driver: bridge
+
+volumes:
+  postgres_data:
