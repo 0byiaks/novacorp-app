@@ -123,8 +123,8 @@ jobs:
 
       - name: Update image tags in manifests
         run: |
-          sed -i "s|novacorp/api:.*|novacorp/api:${{ needs.build-and-push.outputs.image_tag }}|g" kubernetes/novacorp/api/deployment.yaml
-          sed -i "s|novacorp/frontend:.*|novacorp/frontend:${{ needs.build-and-push.outputs.image_tag }}|g" kubernetes/novacorp/frontend/deployment.yaml
+          sed -i "s|cop-api:.*|cop-api:${{ needs.build-and-push.outputs.image_tag }}|g" kubernetes/novacorp/api/deployment.yaml
+          sed -i "s|cop-frontend:.*|cop-frontend:${{ needs.build-and-push.outputs.image_tag }}|g" kubernetes/novacorp/frontend/deployment.yaml
 
       - name: Commit and push manifest updates
         run: |
