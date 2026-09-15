@@ -16,8 +16,8 @@ permissions:
 env:
   AWS_REGION: eu-west-2
   ECR_REGISTRY: 716769866080.dkr.ecr.eu-west-2.amazonaws.com
-  FRONTEND_IMAGE: novacorp/frontend
-  API_IMAGE: novacorp/api
+  FRONTEND_IMAGE: cop-frontend
+  API_IMAGE: cop-api
 
 jobs:
   test:
