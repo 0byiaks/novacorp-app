@@ -11,9 +11,9 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="NovaCorp API",
     description="Client portal API for NovaCorp cloud consulting",
-    version="1.0.0"
+    version="1.0.0",
+    root_path="/api"
 )
-
 # CORS — allow frontend to talk to API
 app.add_middleware(
     CORSMiddleware,
