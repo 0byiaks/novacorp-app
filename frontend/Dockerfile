@@ -7,6 +7,11 @@ COPY package.json .
 RUN npm install
 
 COPY . .
+
+# Set API URL at build time
+ARG REACT_APP_API_URL=https://titotest.co.uk/api
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 RUN npm run build
 
 # Production stage
